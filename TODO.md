@@ -1,24 +1,24 @@
 
 
-### المرحلة 2: الأمان والمصادقة4)
+### المرحلة 2: الأمان والمصادقة ✅ **مكتملة**
 
 | المهمة | المدة | المسؤول | الحالة |
 |--------|------|---------|--------|
-| تطبيق JWT Authentication | 3  | Backend Dev | ⏳ |
-| إضافة Rate Limiting | 1 | Backend Dev | ⏳ |
-| Input Validation شامل | 2  | Backend Dev | ⏳ |
-| Secrets Management (AWS Secrets Manager) | 2  | DevOps | ⏳ |
+| تطبيق JWT Authentication | 3 | Backend Dev | ✅ **مكتمل** |
+| إضافة Rate Limiting | 1 | Backend Dev | ✅ **مكتمل** |
+| Input Validation شامل | 2 | Backend Dev | ✅ **مكتمل** |
+| Secrets Management (AWS Secrets Manager) | 2 | DevOps | ⏳ |
 | Security Audit | 1 | Security Team | ⏳ |
 
-###ت  المرحلة 3: الاختبارا6)
+### المرحلة 3: الاختبار والجودة 🔄 **قيد التنفيذ**
 
 | المهمة | المدة | المسؤول | الحالة |
 |--------|------|---------|--------|
-| كتابة Unit Tests (80+ tests) | 5  | QA + Backend | ⏳ |
-| كتابة Integration Tests (20+ tests) | 3  | QA | ⏳ |
-| كتابة E2E Tests (10+ scenarios) | 2  | QA | ⏳ |
-| إعداد CI/CD Pipeline | 2  | DevOps | ⏳ |
-| تحقيق Coverage > 80% | 3  | QA + Dev | ⏳ |
+| كتابة Unit Tests (80+ tests) | 5 | QA + Backend | ⏳ |
+| كتابة Integration Tests (20+ tests) | 3 | QA | ⏳ |
+| كتابة E2E Tests (10+ scenarios) | 2 | QA | ⏳ |
+| إعداد CI/CD Pipeline | 2 | DevOps | ⏳ |
+| تحقيق Coverage > 80% | 3 | QA + Dev | ⏳ |
 
 ### المرحلة 4: الأداء والتحسين )
 
