@@ -20,7 +20,9 @@ export class AppError extends Error implements CustomError {
     this.isOperational = true;
     this.code = code;
 
-    Error.captureStackTrace(this, this.constructor);
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, this.constructor);
+    }
   }
 }
 

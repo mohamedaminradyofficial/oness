@@ -1,4 +1,5 @@
 import express from 'express';
+import { body, validationResult } from 'express-validator';
 import { extractContentFromUrl, isValidUrl } from '../utils/webScraper';
 import { analyzeContentWithGemini } from '../utils/geminiHelper';
 import { analyzeContentWithGroq } from '../utils/groqHelper';
@@ -7,12 +8,45 @@ import { findRelatedResources } from '../utils/sourceEvaluator';
 import { detectAndAnalyzeCode } from '../utils/geminiHelper';
 import { detectAndAnalyzeCodeGroq } from '../utils/groqHelper';
 import { saveAnalysis, getAnalysisById, getRecentAnalyses, deleteAnalysis } from '../utils/database';
+import { authenticateToken, requireOwnership } from '../middleware/auth';
 
 const router = express.Router();
 
-// POST /api/analysis/analyze
-router.post('/analyze', async (req, res) => {
+// Validation للتحليل
+const analysisValidation = [
+  body('url')
+    .isURL()
+    .withMessage('الرابط غير صحيح'),
+  body('aiProvider')
+    .optional()
+    .isIn(['gemini', 'groq'])
+    .withMessage('محرك الذكاء الاصطناعي غير صحيح'),
+  body('analyzeImages')
+    .optional()
+    .isBoolean()
+    .withMessage('قيمة تحليل الصور يجب أن تكون true أو false'),
+  body('analyzeVideo')
+    .optional()
+    .isBoolean()
+    .withMessage('قيمة تحليل الفيديو يجب أن تكون true أو false')
+];
+
+// POST /api/analysis/analyze - يتطلب authentication
+router.post('/analyze', authenticateToken, analysisValidation, async (req, res) => {
   try {
+    // التحقق من صحة البيانات
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        error: {
+          message: 'بيانات غير صحيحة',
+          code: 'VALIDATION_ERROR',
+          details: errors.array()
+        }
+      });
+    }
+
     const { url, aiProvider = 'gemini', analyzeImages = false, analyzeVideo = false } = req.body;
 
     if (!url || !isValidUrl(url)) {

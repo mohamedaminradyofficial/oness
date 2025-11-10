@@ -1,5 +1,6 @@
 import rateLimit from 'express-rate-limit';
 import compression from 'compression';
+import { Request, Response, NextFunction } from 'express';
 
 // Rate limiting لجميع الطلبات
 export const generalLimiter = rateLimit({

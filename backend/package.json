@@ -2,6 +2,7 @@
   "name": "content-analyzer-backend",
   "version": "1.0.0",
   "description": "Backend API for intelligent content analysis",
+  "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",

@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import fs from 'fs';
 import analysisRoutes from './routes/analysis';
 import sharingRoutes from './routes/sharing';
@@ -10,6 +11,7 @@ import exportRoutes from './routes/export';
 import videoRoutes from './routes/video';
 import imageRoutes from './routes/image';
 import cacheRoutes from './routes/cache';
+import authRoutes from './routes/auth';
 import { logger, logRequest, logStartup, logShutdown, logDatabase } from './utils/logger';
 import { initDb } from './utils/database';
 import { generalLimiter, analysisLimiter, compressionMiddleware } from './middleware/security';
@@ -47,6 +49,15 @@ app.use('/api/analysis/analyze', analysisLimiter);
 // إضافة logging middleware
 app.use(logRequest);
 
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/analysis', analysisRoutes);
+app.use('/api/sharing', sharingRoutes);
+app.use('/api/export', exportRoutes);
+app.use('/api/video', videoRoutes);
+app.use('/api/image', imageRoutes);
+app.use('/api/cache', cacheRoutes);
+
 // Health check
 app.get('/', (req, res) => {
   res.json({
@@ -72,7 +83,9 @@ app.get('/health', (req, res) => {
 });
 
 // إنشاء مجلد logs إذا لم يكن موجوداً
-const logsDir = path.join(__dirname, '..', 'logs');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const logsDir = join(__dirname, '..', 'logs');
 if (!fs.existsSync(logsDir)) {
   fs.mkdirSync(logsDir, { recursive: true });
 }
