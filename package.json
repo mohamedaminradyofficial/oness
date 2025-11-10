@@ -12,10 +12,22 @@
     "start:backend": "cd backend && npm run dev",
     "start:frontend": "cd frontend && npm start",
     "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
-    "test": "cd backend && npm test"
+    "test": "cd backend && npm test",
+    "test:unit": "cd backend && npm run test:unit",
+    "test:integration": "cd backend && npm run test:integration",
+    "test:e2e": "cd backend && npm run test:e2e",
+    "test:coverage": "node scripts/test-coverage.js",
+    "test:all": "npm run test:unit && npm run test:integration && npm run test:e2e",
+    "lint": "cd backend && npm run lint",
+    "lint:fix": "cd backend && npm run lint -- --fix",
+    "type-check": "cd backend && npm run type-check"
   },
   "devDependencies": {
     "concurrently": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   },
   "keywords": ["ai", "content-analysis", "typescript", "react", "express"],
   "author": "",
